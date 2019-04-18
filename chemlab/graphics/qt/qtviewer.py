@@ -2,17 +2,17 @@ import numpy as np
 import time
 
 import sys
-from PyQt4.QtGui import QMainWindow, QApplication
-from PyQt4.QtCore import QTimer, Qt
-from PyQt4 import QtCore, QtGui
-from PyQt4.QtOpenGL import *
+from PyQt5.QtWidgets import QMainWindow, QApplication
+from PyQt5.QtCore import QTimer, Qt
+from PyQt5 import QtWidgets, QtGui, QtCore
+from PyQt5.QtOpenGL import *
 
 from .qchemlabwidget import QChemlabWidget
 
 app_created = False
 app = QtCore.QCoreApplication.instance()
 if app is None:
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     app_created = True
     app.references = set()
 
@@ -31,7 +31,7 @@ class FpsDraw(object):
 
 
 class QtViewer(QMainWindow):
-    """Bases: `PyQt4.QtGui.QMainWindow`
+    """Bases: `PyQt5.QtWidgets.QMainWindow`
 
     View objects in space.
 
@@ -68,7 +68,7 @@ class QtViewer(QMainWindow):
 
         # Pre-initializing an OpenGL context can let us use opengl
         # functions without having to show the window first...
-        context = QGLContext(QGLFormat(), None)
+        context = QGLContext(QGLFormat())
         widget = QChemlabWidget(context, self)
         context.makeCurrent()
         self.setCentralWidget(widget)

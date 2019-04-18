@@ -26,7 +26,7 @@ setup(
     include_dirs = [np.get_include()],
     install_requires = ['dask', 'toolz', 'cython', 'six', 
                         'numpy', 'scipy', 'matplotlib', 'h5py'],
-    extras_require={'qt': ['pyqt==4']},
+    extras_require={'qt': ['pyqt5']},
     package_data = {'': ['distribute_setup.py', '*.rst', '*.txt'],
                     'chemlab.graphics.renderers.shaders': ['*.vert', '*.frag'],
                     'chemlab.graphics.postprocessing.shaders': ['*.vert', '*.frag'],

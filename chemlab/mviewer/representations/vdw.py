@@ -116,14 +116,14 @@ class VdWRepresentation(object):
 
     def get_widget(self):
         # A widget to control the representations
-        container = QtGui.QWidget()
+        container = QtWidgets.QWidget()
         
-        title = QtGui.QLabel('<b>Van der Waals</b>')
+        title = QtWidgets.QLabel('<b>Van der Waals</b>')
         
-        grid = QtGui.QGridLayout()
+        grid = QtWidgets.QGridLayout()
         grid.addWidget(title, 0, 0, 1, 0, Qt.AlignLeft)
-        grid.addWidget(QtGui.QLabel('Radius'), 1, 0, Qt.AlignLeft)
-        spinner = QtGui.QDoubleSpinBox()
+        grid.addWidget(QtWidgets.QLabel('Radius'), 1, 0, Qt.AlignLeft)
+        spinner = QtWidgets.QDoubleSpinBox()
         spinner.setMaximum(3.0)
         spinner.setMinimum(0.1)
         spinner.setDecimals(1)

@@ -33,7 +33,7 @@ def trajectory(start=None, stop=None, step=None):
 
     '''
     import numpy as np
-    from PyQt4 import QtGui
+    from PyQt5 import QtWidgets, QtGui, QtCore
 
     times = np.array(current_frame_times()) / 1000
 
@@ -53,7 +53,7 @@ def trajectory(start=None, stop=None, step=None):
     for i in range(*sl.indices(current_nframes())):
         viewer.traj_controls.goto_frame(i)
         yield i
-        QtGui.qApp.processEvents()
+        QtWidgets.qApp.processEvents()
 
 
 def frames(skip=1):
@@ -69,12 +69,12 @@ def frames(skip=1):
     You can use the option *skip* to take every i :sup:`th` frame.
     
     '''
-    from PyQt4 import QtGui
+    from PyQt5 import QtWidgets, QtGui, QtCore
     
     for i in range(0, viewer.traj_controls.max_index, skip):
         viewer.traj_controls.goto_frame(i)
         yield i
-        QtGui.qApp.processEvents()
+        QtWidgets.qApp.processEvents()
 
 
 def current_time():

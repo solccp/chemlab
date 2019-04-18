@@ -66,7 +66,7 @@ class BondRenderer(AbstractRenderer):
     
     def _compute_bounds(self, r_array, bonds):
         
-        if len(bonds) == 0:
+        if bonds is None or len(bonds) == 0:
             return np.array([]), np.array([])
         
         starts = r_array[bonds[:,0]]

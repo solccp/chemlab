@@ -4,16 +4,16 @@
 import numpy as np
 import os
 
-from PyQt4 import QtGui
-from PyQt4.QtCore import Qt, QSize
-from PyQt4 import QtCore
+from PyQt5 import QtWidgets, QtGui, QtCore
+from PyQt5.QtCore import Qt, QSize
+from PyQt5 import QtWidgets, QtGui, QtCore
 
-from ..graphics.qtviewer import QtViewer
+from ..graphics.qt.qtviewer import QtViewer
 from ..graphics import colors
 from ..graphics.renderers import AtomRenderer, SphereImpostorRenderer
 from ..graphics.pickers import SpherePicker
 from .representations.ballandstick import BallAndStickRepresentation
-from ..graphics.qttrajectory import TrajectoryControls
+from ..graphics.qt.qttrajectory import TrajectoryControls
 
 from .QIPythonWidget import QIPythonWidget
 
@@ -22,7 +22,7 @@ from .. import resources
 resources_dir = os.path.dirname(resources.__file__)
 
 
-class IconButton(QtGui.QPushButton):
+class IconButton(QtWidgets.QPushButton):
     def __init__(self, iconname, text):
         icon = QtGui.QIcon(iconname)
         super(IconButton, self).__init__(icon, '')
@@ -42,28 +42,28 @@ class QtMolecularViewer(QtViewer):
         #####################################
         self.widget.clicked.connect(self.on_click)
         # Let's add some dock
-        self.controls = QtGui.QDockWidget()
+        self.controls = QtWidgets.QDockWidget()
         # Eliminate the dock titlebar
-        title_widget = QtGui.QWidget(self)
+        title_widget = QtWidgets.QWidget(self)
         self.controls.setTitleBarWidget(title_widget)
-        hb = QtGui.QHBoxLayout() # For controls
+        hb = QtWidgets.QHBoxLayout() # For controls
         
         self.keys = {}
         
-        self.actions['action1'] = QtGui.QPushButton('action1')
-        self.actions['action2'] = QtGui.QPushButton('action2')
+        self.actions['action1'] = QtWidgets.QPushButton('action1')
+        self.actions['action2'] = QtWidgets.QPushButton('action2')
         
         # Sidebar definition        
-        dock2 = QtGui.QDockWidget()
+        dock2 = QtWidgets.QDockWidget()
 
-        self.status_bar = QtGui.QLabel()
+        self.status_bar = QtWidgets.QLabel()
         
         self.ipython = QIPythonWidget()
         self.ipython.initialize()        
         
-        wrapper2 = QtGui.QWidget(self)
-        vb = QtGui.QVBoxLayout(self)
-        vb.setSizeConstraint(QtGui.QLayout.SetMaximumSize)
+        wrapper2 = QtWidgets.QWidget(self)
+        vb = QtWidgets.QVBoxLayout(self)
+        vb.setSizeConstraint(QtWidgets.QLayout.SetMaximumSize)
         
         self.traj_controls = TrajectoryControls()
         vb.addWidget(self.traj_controls, 1)

@@ -1,6 +1,6 @@
-from PyQt4.QtGui import QMainWindow, QApplication, QDockWidget
-from PyQt4 import QtGui, QtCore
-from PyQt4.QtCore import Qt
+from PyQt5 import QtWidgets, QtGui, QtCore
+from PyQt5.QtWidgets import QMainWindow, QApplication, QDockWidget
+from PyQt5.QtCore import Qt
 
 import os
 
@@ -13,7 +13,7 @@ import numpy as np
 
 resources_dir = os.path.dirname(resources.__file__)
 
-class PlayStopButton(QtGui.QPushButton):
+class PlayStopButton(QtWidgets.QPushButton):
     
     play = QtCore.pyqtSignal()
     pause = QtCore.pyqtSignal()
@@ -57,7 +57,7 @@ class PlayStopButton(QtGui.QPushButton):
         icon = QtGui.QIcon(os.path.join(resources_dir, 'pause_icon.svg'))
         self.setIcon(icon)
         
-class AnimationSlider(QtGui.QSlider):
+class AnimationSlider(QtWidgets.QSlider):
     
     def __init__(self):
         super(AnimationSlider, self).__init__(Qt.Horizontal)
@@ -72,9 +72,9 @@ class AnimationSlider(QtGui.QSlider):
         super(AnimationSlider, self).mousePressEvent(event)
             
     def __pixelPosToRangeValue(self, pos):
-        opt = QtGui.QStyleOptionSlider()
+        opt = QtWidgets.QStyleOptionSlider()
         self.initStyleOption(opt)
-        style = QtGui.QApplication.style()
+        style = QtWidgets.QApplication.style()
         
         gr = style.subControlRect(style.CC_Slider, opt, style.SC_SliderGroove, self)
         sr = style.subControlRect(style.CC_Slider, opt, style.SC_SliderHandle, self)
@@ -92,7 +92,7 @@ class AnimationSlider(QtGui.QSlider):
                                              pos-slider_min, slider_max-slider_min,
                                              opt.upsideDown)
 
-class TrajectoryControls(QtGui.QWidget):
+class TrajectoryControls(QtWidgets.QWidget):
     play = QtCore.pyqtSignal()
     pause = QtCore.pyqtSignal()
 
@@ -107,26 +107,26 @@ class TrajectoryControls(QtGui.QWidget):
         self._timer = QtCore.QTimer(self)
         self._timer.timeout.connect(self.do_update)
         
-        containerhb2 = QtGui.QWidget(parent)
+        containerhb2 = QtWidgets.QWidget(parent)
         
-        hb = QtGui.QHBoxLayout() # For controls
-        vb = QtGui.QVBoxLayout()
+        hb = QtWidgets.QHBoxLayout() # For controls
+        vb = QtWidgets.QVBoxLayout()
 
-        hb2 = QtGui.QHBoxLayout() # For settings
+        hb2 = QtWidgets.QHBoxLayout() # For settings
         
         vb.addWidget(containerhb2)
         vb.addLayout(hb)
         
         containerhb2.setLayout(hb2)
-        containerhb2.setSizePolicy(QtGui.QSizePolicy.Minimum,
-                                   QtGui.QSizePolicy.Minimum)
+        containerhb2.setSizePolicy(QtWidgets.QSizePolicy.Minimum,
+                                   QtWidgets.QSizePolicy.Minimum)
         
         
-        hb2.addWidget(QtGui.QLabel('Speed'))
-        self._speed_slider = QtGui.QSlider(Qt.Horizontal)
+        hb2.addWidget(QtWidgets.QLabel('Speed'))
+        self._speed_slider = QtWidgets.QSlider(Qt.Horizontal)
         self._speed_slider.resize(100, self._speed_slider.height())
-        self._speed_slider.setSizePolicy(QtGui.QSizePolicy.Fixed,
-                                         QtGui.QSizePolicy.Fixed)
+        self._speed_slider.setSizePolicy(QtWidgets.QSizePolicy.Fixed,
+                                         QtWidgets.QSizePolicy.Fixed)
         
         self.speeds = np.linspace(15, 250, 11).astype(int)
         self.speeds = self.speeds.tolist()
@@ -146,10 +146,10 @@ class TrajectoryControls(QtGui.QWidget):
         hb.addWidget(self.slider, 2)
         
         self._label_tmp = '<b><FONT SIZE=30>{}</b>'
-        self.timelabel = QtGui.QLabel(self._label_tmp.format('0.0'))
+        self.timelabel = QtWidgets.QLabel(self._label_tmp.format('0.0'))
         hb.addWidget(self.timelabel)
         
-        self._settings_button = QtGui.QPushButton()
+        self._settings_button = QtWidgets.QPushButton()
         self._settings_button.setStyleSheet('''
                                  QPushButton {
                                      width: 30px;
@@ -162,7 +162,7 @@ class TrajectoryControls(QtGui.QWidget):
         hb.addWidget(self._settings_button)
         
         self.play_stop.setFocus()
-        vb.setSizeConstraint(QtGui.QLayout.SetMaximumSize)
+        vb.setSizeConstraint(QtWidgets.QLayout.SetMaximumSize)
         containerhb2.setVisible(False)
         
         self._settings_pan = containerhb2
@@ -243,7 +243,7 @@ class TrajectoryControls(QtGui.QWidget):
         
 
 class QtTrajectoryViewer(QMainWindow):
-    """Bases: `PyQt4.QtGui.QMainWindow`
+    """Bases: `PyQt5.QtWidgets.QMainWindow`
 
     Interface for viewing trajectory.
 
@@ -292,7 +292,7 @@ class QtTrajectoryViewer(QMainWindow):
         self.controls = QDockWidget()
         
         # Eliminate the dock titlebar
-        title_widget = QtGui.QWidget(self)
+        title_widget = QtWidgets.QWidget(self)
         self.controls.setTitleBarWidget(title_widget)
         
         traj_controls = TrajectoryControls(self)
